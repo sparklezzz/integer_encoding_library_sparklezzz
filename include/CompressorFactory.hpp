@@ -1,0 +1,108 @@
+/*
+ * CompressorFactory.hpp
+ */
+#include <string>
+#include "Compressor.hpp"
+namespace paradise {
+namespace index {
+
+enum CompressorType {
+	COM_RICE,
+	COM_PB,
+	COM_PB_SE,
+	COM_PB_VL,
+	COM_PB_SVL,
+	COM_SIMD_PB,
+	COM_SIMD_PB_SE,
+	COM_SIMD_PB_VL,
+	COM_SIMD_PB_SVL,
+	COM_PFOR_DELTA,
+	COM_PFOR_DELTA_OPT,
+	COM_PFOR_DELTA_INTEL,
+	COM_PFD_SE,
+	COM_PFD_VL,
+	COM_PFD_SVL,
+	COM_SIMD_PFD_SE,
+	COM_SIMD_PFD_VL,
+	COM_SIMD_PFD_SVL,
+	COM_VINT,
+	COM_GVINT,
+	COM_GVINT_INTEL,
+	COM_GVINT_IU,
+	COM_GVINT_IU_INTEL,
+	COM_GVINT_CU,
+	COM_GVINT_CU_INTEL,
+	COM_KVINT,
+	COM_KVINT_IU,
+	COM_KVINT_CU,
+	COM_SIMD_KVINT,
+	COM_SIMD_KVINT_IU,
+	COM_SIMD_KVINT_CU,
+	COM_KSCHEME_1BIT_BINARY,
+	COM_KSCHEME_2BIT_BINARY,
+	COM_KSCHEME_3BIT_BINARY,
+	COM_KSCHEME_4BIT_BINARY,
+	COM_KSCHEME_4BIT_IU,
+	COM_KSCHEME_1BIT_CU,
+	COM_KSCHEME_2BIT_CU,
+	COM_KSCHEME_4BIT_CU,
+	COM_SIMD_KSCHEME_1BIT_BINARY,
+	COM_SIMD_KSCHEME_2BIT_BINARY,
+	COM_SIMD_KSCHEME_4BIT_BINARY,
+	COM_SIMD_KSCHEME_4BIT_IU,
+	COM_SIMD_KSCHEME_1BIT_CU,
+	COM_SIMD_KSCHEME_2BIT_CU,
+	COM_SIMD_KSCHEME_4BIT_CU,
+	COM_S9,
+	COM_S16,
+	COM_S14_X64,
+	COM_S16_X64,
+	COM_S32_X64,
+	COM_S64_X64,
+	COM_SIMD_S9,
+	COM_SIMD_S14_X64,
+	COM_GAMMA,
+	COM_GAMMA_OPT,
+	COM_KGAMMA,
+	COM_SIMD_KGAMMA,
+	COM_KSIMPLE,
+	COM_SIMD_KSIMPLE,
+	COM_AFOR,
+	COM_KAFOR,
+	COM_SIMD_KAFOR,
+	COM_VSE_NAIVE,
+	COM_VSE_SIMPLE,
+	COM_KVSE,
+	COM_SIMD_KVSE,
+	COM_SIMD_GROUP_PFD,
+	COM_SIMD_GROUP_PFD_2,
+	COM_SIMD_GROUP_PFD_3,
+	COM_SIMD_RICE,
+	COM_S14_X128,
+	COM_SIMD_S14_X128,
+	COM_SIMD_FASTPFOR,
+	COM_SIMD_KSIMPLE_SORTED,
+	COM_SIMD_KAFOR_SORTED,
+	COM_PLAIN
+};
+
+
+class CompressorFactory {
+public:
+	static CompressorFactory* getInstance();
+
+	Compressor* createCompressor(CompressorType type);
+
+	Compressor* createCompressor(std::string compName);
+
+	static CompressorType transCompressorType(std::string compName);
+
+	~CompressorFactory();
+private:
+	CompressorFactory();
+
+private:
+	static CompressorFactory* m_pFactory;
+};
+}
+}
